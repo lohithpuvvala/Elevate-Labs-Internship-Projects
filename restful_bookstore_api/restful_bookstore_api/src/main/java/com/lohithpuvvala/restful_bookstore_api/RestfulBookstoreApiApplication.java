@@ -9,5 +9,4 @@ public class RestfulBookstoreApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RestfulBookstoreApiApplication.class, args);
 	}
-
 }
