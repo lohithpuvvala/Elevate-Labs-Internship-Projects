@@ -23,7 +23,7 @@ public class Book {
     private String title;
 
     private String genre;
-    private int year;
+    private int publicationYear;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER) // Need to change this to LAZY once completed the project
