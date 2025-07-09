@@ -50,8 +50,15 @@ public class AuthorServiceImpl implements AuthorService {
 
 
     @Override
-    public AuthorDto updateAuthor(Author author) {
-        return null;
+    public AuthorDto updateAuthor(long id, AuthorDto authorDto) {
+        Author author = authorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Author not found with id :: "+id));
+
+        author.setName(authorDto.getName());
+        author.setEmail(authorDto.getEmail());
+
+        Author updated = authorRepository.save(author);
+        return DtoMapper.toAuthorDto(updated);
     }
 
     @Override
