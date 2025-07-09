@@ -8,7 +8,7 @@ import org.w3c.dom.stylesheets.LinkStyle;
 import java.util.List;
 
 public interface AuthorService {
-    AuthorDto createAuthor(Author author);
+    AuthorDto createAuthor(AuthorDto author);
     AuthorDetailDto getAuthorById(long id);
     List<AuthorDto> getAllAuthors();
     AuthorDto updateAuthor(Author author);

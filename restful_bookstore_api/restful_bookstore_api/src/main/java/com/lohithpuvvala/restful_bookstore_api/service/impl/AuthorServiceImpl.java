@@ -38,8 +38,13 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorDto createAuthor(Author author) {
-        return null;
+    public AuthorDto createAuthor(AuthorDto authorDto) {
+        Author author = new Author();
+        author.setName(authorDto.getName());
+        author.setEmail(authorDto.getEmail());
+
+        Author savedAuthor = authorRepository.save(author);
+        return DtoMapper.toAuthorDto(savedAuthor);
     }
 
 
