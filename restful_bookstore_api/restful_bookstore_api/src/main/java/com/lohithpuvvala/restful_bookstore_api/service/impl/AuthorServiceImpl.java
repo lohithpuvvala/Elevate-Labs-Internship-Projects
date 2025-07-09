@@ -31,7 +31,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorDto createAuthor(Author author) {
-
+        return null;
     }
 
     @Override
