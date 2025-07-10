@@ -7,19 +7,9 @@ import lombok.Data;
 
 @Data
 public class BookDto {
-
-    @NotNull(message = "Book Id is required!")
     private Long id;
-
-    @NotBlank(message = "Book Title is required!")
     private String title;
-
-    @NotBlank(message = "Book Genre is required!")
     private String genre;
-
-    @Min(value = 1500, message = "Book publication year should be valid!")
     private int publicationYear;
-
-    @NotNull(message = "Author Id is required!")
     private Long authorId;
 }
