@@ -3,6 +3,7 @@ package com.lohithpuvvala.restful_bookstore_api.service.impl;
 import com.lohithpuvvala.restful_bookstore_api.dto.AuthorDetailDto;
 import com.lohithpuvvala.restful_bookstore_api.dto.AuthorDto;
 import com.lohithpuvvala.restful_bookstore_api.dto.CreateAuthorDto;
+import com.lohithpuvvala.restful_bookstore_api.dto.UpdateAuthorDto;
 import com.lohithpuvvala.restful_bookstore_api.exception.ResourceNotFoundException;
 import com.lohithpuvvala.restful_bookstore_api.mapper.DtoMapper;
 import com.lohithpuvvala.restful_bookstore_api.model.Author;
@@ -50,7 +51,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 
     @Override
-    public AuthorDto updateAuthor(Long id, AuthorDto authorDto) {
+    public AuthorDto updateAuthor(Long id, UpdateAuthorDto authorDto) {
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Author not found with id :: "+id));
 
