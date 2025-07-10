@@ -2,7 +2,9 @@ package com.lohithpuvvala.restful_bookstore_api.controller;
 
 import com.lohithpuvvala.restful_bookstore_api.dto.BookDetailDto;
 import com.lohithpuvvala.restful_bookstore_api.dto.BookDto;
+import com.lohithpuvvala.restful_bookstore_api.dto.CreateBookDto;
 import com.lohithpuvvala.restful_bookstore_api.service.BookService;
+import com.lohithpuvvala.restful_bookstore_api.service.impl.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -16,14 +18,14 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    private final BookService bookService;
+    private final BookServiceImpl bookService;
 
-    public BookController(BookService bookService){
+    public BookController(BookServiceImpl bookService){
         this.bookService = bookService;
     }
 
     @PostMapping
-    public ResponseEntity<BookDetailDto> createBook(@RequestBody BookDto bookDto){
+    public ResponseEntity<BookDetailDto> createBook(@RequestBody CreateBookDto bookDto){
         BookDetailDto created = bookService.createBook(bookDto);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }

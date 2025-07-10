@@ -2,6 +2,7 @@ package com.lohithpuvvala.restful_bookstore_api.service.impl;
 
 import com.lohithpuvvala.restful_bookstore_api.dto.BookDetailDto;
 import com.lohithpuvvala.restful_bookstore_api.dto.BookDto;
+import com.lohithpuvvala.restful_bookstore_api.dto.CreateBookDto;
 import com.lohithpuvvala.restful_bookstore_api.exception.ResourceNotFoundException;
 import com.lohithpuvvala.restful_bookstore_api.mapper.DtoMapper;
 import com.lohithpuvvala.restful_bookstore_api.model.Author;
@@ -35,7 +36,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDetailDto createBook(BookDto bookDto) {
+    public BookDetailDto createBook(CreateBookDto bookDto) {
         Author author = authorRepository.findById(bookDto.getAuthorId())
                 .orElseThrow(() -> new ResourceNotFoundException("Author not found with id :: "+bookDto.getAuthorId()));
 
