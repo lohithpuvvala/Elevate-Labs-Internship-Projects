@@ -1,13 +1,15 @@
 package com.lohithpuvvala.restful_bookstore_api.service;
 
+import com.lohithpuvvala.restful_bookstore_api.dto.BookDetailDto;
+import com.lohithpuvvala.restful_bookstore_api.dto.BookDto;
 import com.lohithpuvvala.restful_bookstore_api.model.Book;
 
 import java.util.List;
 
 public interface BookService {
-    Book createBook(Book book);
-    Book getBookById(long id);
-    void deleteBookById(long id);
-    void updateBook(Book book);
+    BookDetailDto createBook(BookDto bookDto);
+    BookDetailDto getBookById(Long id);
     List<Book> getAllBooks();
+    BookDetailDto updateBook(Long id, BookDto bookDto);
+    void deleteBookById(Long id);
 }

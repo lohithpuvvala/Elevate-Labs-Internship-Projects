@@ -7,17 +7,19 @@ import com.lohithpuvvala.restful_bookstore_api.mapper.DtoMapper;
 import com.lohithpuvvala.restful_bookstore_api.model.Author;
 import com.lohithpuvvala.restful_bookstore_api.repository.AuthorRepository;
 import com.lohithpuvvala.restful_bookstore_api.service.AuthorService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
+
+    AuthorServiceImpl(AuthorRepository authorRepository){
+        this.authorRepository = authorRepository;
+    }
 
     @Override
     public List<AuthorDto> getAllAuthors() {
@@ -28,7 +30,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorDetailDto getAuthorById(long id) {
+    public AuthorDetailDto getAuthorById(Long id) {
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Author not found for this id :: " + id));
         return DtoMapper.toAuthorDetailDto(author);
@@ -47,7 +49,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 
     @Override
-    public AuthorDto updateAuthor(long id, AuthorDto authorDto) {
+    public AuthorDto updateAuthor(Long id, AuthorDto authorDto) {
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Author not found with id :: "+id));
 
@@ -59,7 +61,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void deleteAuthorById(long id) {
+    public void deleteAuthorById(Long id) {
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Author not found with id :: "+id));
 
