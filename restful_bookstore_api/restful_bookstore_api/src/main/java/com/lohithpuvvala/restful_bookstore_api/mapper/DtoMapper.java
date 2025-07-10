@@ -2,6 +2,7 @@ package com.lohithpuvvala.restful_bookstore_api.mapper;
 
 import com.lohithpuvvala.restful_bookstore_api.dto.AuthorDetailDto;
 import com.lohithpuvvala.restful_bookstore_api.dto.AuthorDto;
+import com.lohithpuvvala.restful_bookstore_api.dto.BookDetailDto;
 import com.lohithpuvvala.restful_bookstore_api.dto.BookDto;
 import com.lohithpuvvala.restful_bookstore_api.model.Author;
 import com.lohithpuvvala.restful_bookstore_api.model.Book;
@@ -23,7 +24,6 @@ public class DtoMapper {
 //    Convert Book to BookDto
     public static BookDto toBookDto(Book book){
         BookDto dto = new BookDto();
-        dto.setId(book.getId());
         dto.setTitle(book.getTitle());
         dto.setGenre(book.getGenre());
         dto.setPublicationYear(book.getPublicationYear());
@@ -45,4 +45,33 @@ public class DtoMapper {
         dto.setBooks(bookDtos);
         return dto;
     }
+
+    //Convert BookDto to book
+    public static Book toBookEntity(BookDto bookDto){
+        Book book = new Book();
+        book.setTitle(bookDto.getTitle());
+        book.setGenre(bookDto.getGenre());
+        book.setPublicationYear(bookDto.getPublicationYear());
+        //author will be set seperately
+        return book;
+    }
+
+    //Conver Book to BookDetailDto(with author info)
+    public static BookDetailDto toBookDetailDto(Book book) {
+        BookDetailDto dto = new BookDetailDto();
+        dto.setId(book.getId());
+        dto.setTitle(book.getTitle());
+        dto.setGenre(book.getGenre());
+        dto.setPublicationYear(book.getPublicationYear());
+
+        if (book.getAuthor() != null) {
+            AuthorDto authorDto = new AuthorDto();
+            authorDto.setId(book.getAuthor().getId());
+            authorDto.setName(book.getAuthor().getName());
+            dto.setAuthor(authorDto);
+        }
+
+        return dto;
+    }
+
 }
