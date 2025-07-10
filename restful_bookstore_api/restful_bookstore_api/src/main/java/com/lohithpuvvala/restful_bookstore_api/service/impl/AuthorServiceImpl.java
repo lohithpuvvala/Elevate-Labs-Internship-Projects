@@ -2,6 +2,7 @@ package com.lohithpuvvala.restful_bookstore_api.service.impl;
 
 import com.lohithpuvvala.restful_bookstore_api.dto.AuthorDetailDto;
 import com.lohithpuvvala.restful_bookstore_api.dto.AuthorDto;
+import com.lohithpuvvala.restful_bookstore_api.dto.CreateAuthorDto;
 import com.lohithpuvvala.restful_bookstore_api.exception.ResourceNotFoundException;
 import com.lohithpuvvala.restful_bookstore_api.mapper.DtoMapper;
 import com.lohithpuvvala.restful_bookstore_api.model.Author;
@@ -37,7 +38,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorDto createAuthor(AuthorDto authorDto) {
+    public AuthorDto createAuthor(CreateAuthorDto authorDto) {
         Author author = new Author();
         author.setName(authorDto.getName());
         author.setEmail(authorDto.getEmail());

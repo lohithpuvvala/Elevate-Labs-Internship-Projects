@@ -2,6 +2,7 @@ package com.lohithpuvvala.restful_bookstore_api.controller;
 
 import com.lohithpuvvala.restful_bookstore_api.dto.AuthorDetailDto;
 import com.lohithpuvvala.restful_bookstore_api.dto.AuthorDto;
+import com.lohithpuvvala.restful_bookstore_api.dto.CreateAuthorDto;
 import com.lohithpuvvala.restful_bookstore_api.service.impl.AuthorServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,8 @@ public class AuthorController {
     }
 
     @PostMapping
-    public ResponseEntity<AuthorDto> createAuthor(@RequestBody AuthorDto authorDto){
-        AuthorDto savedAuthor = authorService.createAuthor(authorDto);
+    public ResponseEntity<AuthorDto> createAuthor(@RequestBody CreateAuthorDto createAuthorDto){
+        AuthorDto savedAuthor = authorService.createAuthor(createAuthorDto);
         return new ResponseEntity<>(savedAuthor, HttpStatus.CREATED);
     }
 
