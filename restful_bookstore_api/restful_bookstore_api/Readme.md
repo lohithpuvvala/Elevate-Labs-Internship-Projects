@@ -19,8 +19,8 @@ A Spring Boot application that provides RESTful APIs for managing books and auth
 
 ## 🛠 Tools & Technologies
 
-- Java 17
-- Spring Boot 3.x
+- Java 21
+- Spring Boot V3.5
 - Spring Data JPA
 - H2 Database
 - Swagger (Springdoc OpenAPI)
