@@ -24,6 +24,7 @@ public class DtoMapper {
 //    Convert Book to BookDto
     public static BookDto toBookDto(Book book){
         BookDto dto = new BookDto();
+
         dto.setTitle(book.getTitle());
         dto.setGenre(book.getGenre());
         dto.setPublicationYear(book.getPublicationYear());
