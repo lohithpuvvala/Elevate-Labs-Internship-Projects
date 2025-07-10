@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 public class DtoMapper {
 
-//    Convert Author to AuthorDto
-    public static AuthorDto toAuthorDto(Author author){
+    // Convert Author to AuthorDto
+    public static AuthorDto toAuthorDto(Author author) {
         AuthorDto dto = new AuthorDto();
         dto.setId(author.getId());
         dto.setName(author.getName());
@@ -21,18 +21,23 @@ public class DtoMapper {
         return dto;
     }
 
-//    Convert Book to BookDto
-    public static BookDto toBookDto(Book book){
+    // Convert Book to BookDto
+    public static BookDto toBookDto(Book book) {
         BookDto dto = new BookDto();
-
+        dto.setId(book.getId()); // <-- Important
         dto.setTitle(book.getTitle());
         dto.setGenre(book.getGenre());
         dto.setPublicationYear(book.getPublicationYear());
+
+        if (book.getAuthor() != null) {
+            dto.setAuthorId(book.getAuthor().getId()); // <-- Important
+        }
+
         return dto;
     }
 
-//    Convert Author to AuthoDetailDto (with books)
-    public static AuthorDetailDto toAuthorDetailDto(Author author){
+    // Convert Author to AuthorDetailDto (with books)
+    public static AuthorDetailDto toAuthorDetailDto(Author author) {
         AuthorDetailDto dto = new AuthorDetailDto();
         dto.setId(author.getId());
         dto.setName(author.getName());
@@ -47,17 +52,17 @@ public class DtoMapper {
         return dto;
     }
 
-    //Convert BookDto to book
-    public static Book toBookEntity(BookDto bookDto){
+    // Convert BookDto to Book
+    public static Book toBookEntity(BookDto bookDto) {
         Book book = new Book();
         book.setTitle(bookDto.getTitle());
         book.setGenre(bookDto.getGenre());
         book.setPublicationYear(bookDto.getPublicationYear());
-        //author will be set seperately
+        // author will be set separately
         return book;
     }
 
-    //Conver Book to BookDetailDto(with author info)
+    // Convert Book to BookDetailDto (with author info)
     public static BookDetailDto toBookDetailDto(Book book) {
         BookDetailDto dto = new BookDetailDto();
         dto.setId(book.getId());
@@ -69,10 +74,10 @@ public class DtoMapper {
             AuthorDto authorDto = new AuthorDto();
             authorDto.setId(book.getAuthor().getId());
             authorDto.setName(book.getAuthor().getName());
+            authorDto.setEmail(book.getAuthor().getEmail()); // <-- Fix here
             dto.setAuthor(authorDto);
         }
 
         return dto;
     }
-
 }

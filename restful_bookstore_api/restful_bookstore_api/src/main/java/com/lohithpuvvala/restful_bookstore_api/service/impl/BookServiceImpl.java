@@ -9,7 +9,13 @@ import com.lohithpuvvala.restful_bookstore_api.model.Book;
 import com.lohithpuvvala.restful_bookstore_api.repository.AuthorRepository;
 import com.lohithpuvvala.restful_bookstore_api.repository.BookRepository;
 import com.lohithpuvvala.restful_bookstore_api.service.BookService;
+import com.lohithpuvvala.restful_bookstore_api.specificaiton.BookSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -81,4 +87,21 @@ public class BookServiceImpl implements BookService {
 
         bookRepository.delete(book);
     }
+
+    @Override
+    public Page<BookDetailDto> getBooks(String genre, Integer publicationYear, int page, int size, String sortBy) {
+        Specification<Book> spec = (root, query, cb) -> cb.conjunction();
+
+        if (genre != null) {
+            spec = spec.and(BookSpecification.hasGenre(genre));
+        }
+        if (publicationYear != null) {
+            spec = spec.and(BookSpecification.hasPulicationYear(publicationYear));
+        }
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        Page<Book> bookPage = bookRepository.findAll(spec, pageable);
+        return bookPage.map(DtoMapper::toBookDetailDto);
+    }
+
 }

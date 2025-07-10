@@ -4,6 +4,7 @@ import com.lohithpuvvala.restful_bookstore_api.dto.BookDetailDto;
 import com.lohithpuvvala.restful_bookstore_api.dto.BookDto;
 import com.lohithpuvvala.restful_bookstore_api.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,5 +51,14 @@ public class BookController {
         bookService.deleteBookById(id);
         return ResponseEntity
                 .ok("Book with id :: "+id+" deleted successfully");
+    }
+
+    @GetMapping("/filter")
+    public Page<BookDetailDto> getBooks(@RequestParam(required = false) String genre,
+                                         @RequestParam(required = false) Integer publicationYear,
+                                         @RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "5") int size,
+                                         @RequestParam(defaultValue = "title") String sortBy){
+        return bookService.getBooks(genre,publicationYear,page,size,sortBy);
     }
 }
