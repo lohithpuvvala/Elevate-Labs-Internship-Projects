@@ -5,36 +5,35 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class UI extends JFrame{
-    private JTextArea fileListArea;
+public class UI extends JFrame {
+    private final JTextArea fileListArea;
     private File[] selectedFiles;
     private File zipFileToExtract;
-    private JProgressBar progressBar;
+    private final JProgressBar progressBar;
 
-    public UI(){
+    public UI() {
         setTitle("File Compressor & Decompressor");
-        setSize(500,400);
+        setSize(500, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        //File list display
+        // File list display
         fileListArea = new JTextArea();
         fileListArea.setEditable(false);
         add(new JScrollPane(fileListArea), BorderLayout.CENTER);
 
         progressBar = new JProgressBar();
         progressBar.setStringPainted(true);
-        progressBar.setVisible(false);//Initially Hidden
+        progressBar.setVisible(false); // Initially hidden
         add(progressBar, BorderLayout.SOUTH);
 
-        //Buttons Panel
+        // Buttons Panel
         JPanel buttonPanel = new JPanel();
         JButton selectFilesButton = new JButton("Select files to compress");
         JButton selectZipBtn = new JButton("Select Zip to Extract");
         JButton compressBtn = new JButton("Compress");
         JButton decompressBtn = new JButton("Decompress");
 
-        //Add Buttons
         buttonPanel.setLayout(new GridLayout(2, 2, 10, 10));
         buttonPanel.add(selectFilesButton);
         buttonPanel.add(selectZipBtn);
@@ -46,35 +45,44 @@ public class UI extends JFrame{
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setMultiSelectionEnabled(true);
             int result = fileChooser.showOpenDialog(null);
-            if(result == JFileChooser.APPROVE_OPTION){
+            if (result == JFileChooser.APPROVE_OPTION) {
                 selectedFiles = fileChooser.getSelectedFiles();
                 fileListArea.setText("");
-                for(File file : selectedFiles){
+                for (File file : selectedFiles) {
                     fileListArea.append(file.getAbsolutePath() + "\n");
                 }
             }
         });
 
         compressBtn.addActionListener(e -> {
-            if(selectedFiles == null || selectedFiles.length == 0){
+            if (selectedFiles == null || selectedFiles.length == 0) {
                 JOptionPane.showMessageDialog(this, "Please select files to compress!");
                 return;
-            }else{
-                JFileChooser saveChooser = new JFileChooser();
-                saveChooser.setDialogTitle("Save Compressed File");
-                saveChooser.setSelectedFile(new File("compressed.zip"));
-                int result = saveChooser.showSaveDialog(this);
+            }
+            JFileChooser saveChooser = new JFileChooser();
+            saveChooser.setDialogTitle("Save Compressed File");
+            saveChooser.setSelectedFile(new File("compressed.zip"));
+            int result = saveChooser.showSaveDialog(this);
 
-                if(result == JFileChooser.APPROVE_OPTION){
-                    File zipFile = saveChooser.getSelectedFile();
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File zipFile = saveChooser.getSelectedFile();
+
+                new Thread(() -> {
                     try {
-                        Compressor.compressFiles(selectedFiles, zipFile);
+                        SwingUtilities.invokeLater(() -> {
+                            progressBar.setValue(0);
+                            progressBar.setVisible(true);
+                        });
+
+                        Compressor.compressFiles(selectedFiles, zipFile, progressBar);
                         JOptionPane.showMessageDialog(this, "Compressed Successfully!");
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(this, "Error compressing file: " + ex.getMessage());
                         ex.printStackTrace();
+                    } finally {
+                        SwingUtilities.invokeLater(() -> progressBar.setVisible(false));
                     }
-                }
+                }).start();
             }
         });
 
@@ -84,19 +92,19 @@ public class UI extends JFrame{
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
             int result = chooser.showOpenDialog(this);
-            if(result == JFileChooser.APPROVE_OPTION){
+            if (result == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = chooser.getSelectedFile();
-                if(!selectedFile.getName().endsWith(".zip")){
+                if (!selectedFile.getName().endsWith(".zip")) {
                     JOptionPane.showMessageDialog(this, "Please select a valid Zip File!");
                     return;
                 }
 
                 zipFileToExtract = selectedFile;
-                fileListArea.append("Zip File Selected: " + zipFileToExtract.getAbsolutePath() + "\n\n");
+                fileListArea.setText("Zip File Selected:\n" + zipFileToExtract.getAbsolutePath() + "\n");
             }
         });
 
-        decompressBtn.addActionListener( e -> {
+        decompressBtn.addActionListener(e -> {
             if (zipFileToExtract == null || !zipFileToExtract.getName().endsWith(".zip")) {
                 JOptionPane.showMessageDialog(this, "Please select a valid .zip file to extract.");
                 return;
@@ -109,15 +117,26 @@ public class UI extends JFrame{
             int result = outputChooser.showSaveDialog(this);
             if (result == JFileChooser.APPROVE_OPTION) {
                 File outputDir = outputChooser.getSelectedFile();
-                try {
-                    Decompressor.decompressFiles(zipFileToExtract, outputDir);
-                    JOptionPane.showMessageDialog(this, "Extraction completed successfully!");
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, "Error during extraction: " + ex.getMessage());
-                    ex.printStackTrace();
-                }
+
+                new Thread(() -> {
+                    try {
+                        SwingUtilities.invokeLater(() -> {
+                            progressBar.setValue(0);
+                            progressBar.setVisible(true);
+                        });
+
+                        Decompressor.decompressFiles(zipFileToExtract, outputDir, progressBar);
+                        JOptionPane.showMessageDialog(this, "Extraction completed successfully!");
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(this, "Error during extraction: " + ex.getMessage());
+                        ex.printStackTrace();
+                    } finally {
+                        SwingUtilities.invokeLater(() -> progressBar.setVisible(false));
+                    }
+                }).start();
             }
         });
+
         setVisible(true);
     }
 }
