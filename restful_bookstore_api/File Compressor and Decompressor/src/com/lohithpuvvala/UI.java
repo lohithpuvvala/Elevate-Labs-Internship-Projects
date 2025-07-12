@@ -3,6 +3,7 @@ package com.lohithpuvvala;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 
 public class UI extends JFrame{
     private JTextArea fileListArea;
@@ -86,6 +87,29 @@ public class UI extends JFrame{
 
                 zipFileToExtract = selectedFile;
                 fileListArea.append("Zip File Selected: " + zipFileToExtract.getAbsolutePath() + "\n\n");
+            }
+        });
+
+        decompressBtn.addActionListener( e -> {
+            if (zipFileToExtract == null || !zipFileToExtract.getName().endsWith(".zip")) {
+                JOptionPane.showMessageDialog(this, "Please select a valid .zip file to extract.");
+                return;
+            }
+
+            JFileChooser outputChooser = new JFileChooser();
+            outputChooser.setDialogTitle("Select Destination Folder");
+            outputChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+            int result = outputChooser.showSaveDialog(this);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File outputDir = outputChooser.getSelectedFile();
+                try {
+                    Decompressor.decompressFiles(zipFileToExtract, outputDir);
+                    JOptionPane.showMessageDialog(this, "Extraction completed successfully!");
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Error during extraction: " + ex.getMessage());
+                    ex.printStackTrace();
+                }
             }
         });
 
