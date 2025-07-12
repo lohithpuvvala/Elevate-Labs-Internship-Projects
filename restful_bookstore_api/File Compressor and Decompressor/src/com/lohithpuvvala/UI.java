@@ -47,7 +47,30 @@ public class UI extends JFrame{
             }
         });
 
-        // TODO: Add actions for selectZipBtn, compressBtn, decompressBtn in next commits.
+        compressBtn.addActionListener(e -> {
+            if(selectedFiles == null || selectedFiles.length == 0){
+                JOptionPane.showMessageDialog(this, "Please select files to compress!");
+                return;
+            }else{
+                JFileChooser saveChooser = new JFileChooser();
+                saveChooser.setDialogTitle("Save Compressed File");
+                saveChooser.setSelectedFile(new File("compressed.zip"));
+                int result = saveChooser.showSaveDialog(this);
+
+                if(result == JFileChooser.APPROVE_OPTION){
+                    File zipFile = saveChooser.getSelectedFile();
+                    try {
+                        Compressor.compressFiles(selectedFiles, zipFile);
+                        JOptionPane.showMessageDialog(this, "Compressed Successfully!");
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(this, "Error compressing file: " + ex.getMessage());
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        // TODO: Add actions for selectZipBtn, decompressBtn in next commits.
         setVisible(true);
     }
 }
