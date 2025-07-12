@@ -7,6 +7,7 @@ import java.io.File;
 public class UI extends JFrame{
     private JTextArea fileListArea;
     private File[] selectedFiles;
+    private File zipFileToExtract;
 
     public UI(){
         setTitle("File Compressor & Decompressor");
@@ -70,7 +71,25 @@ public class UI extends JFrame{
             }
         });
 
-        // TODO: Add actions for selectZipBtn, decompressBtn in next commits.
+        selectZipBtn.addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Select a Zip File to Extract");
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+            int result = chooser.showOpenDialog(this);
+            if(result == JFileChooser.APPROVE_OPTION){
+                File selectedFile = chooser.getSelectedFile();
+                if(!selectedFile.getName().endsWith(".zip")){
+                    JOptionPane.showMessageDialog(this, "Please select a valid Zip File!");
+                    return;
+                }
+
+                zipFileToExtract = selectedFile;
+                fileListArea.append("Zip File Selected: " + zipFileToExtract.getAbsolutePath() + "\n\n");
+            }
+        });
+
+        // TODO: Add actions for decompressBtn in next commits.
         setVisible(true);
     }
 }
