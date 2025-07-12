@@ -1,67 +1,89 @@
-# Elevate Wings Internship Projects 🚀
+# 🚀 Elevate Labs Company – Java Developer Internship Projects
 
-Welcome to the **Elevate Wings Internship Projects** repository!  
-This repo contains all the hands-on projects developed during my Elevate Wings internship journey. Each folder is a standalone project with its own codebase and documentation.
+Welcome to the **Elevate Labs Java Developer Internship Projects** repository!  
+This repository showcases all the practical projects built during my Java Developer Internship at **Elevate Labs Company**. Each project is designed to strengthen backend and desktop application development skills using Java and its core technologies.
 
 ---
 
-## 📚 Projects Included
+## 📁 Projects Overview
 
-### [1. RESTful Bookstore API](https://github.com/lohithpuvvala/Elevate-Wings-Internship-Projects/tree/main/restful_bookstore_api)
-A Spring Boot RESTful API for managing books and authors.
+### 📘 [1. RESTful Bookstore API](https://github.com/lohithpuvvala/Elevate-Labs-Internship-Projects/tree/main/restful_bookstore_api)
 
-**Key Features:**
-- CRUD operations for authors and books
-- DTO-based layered architecture
-- Pagination and sorting
-- Input validation
-- H2 in-memory database
+A Spring Boot-based RESTful API for managing books and authors.
+
+**🔑 Key Features:**
+- Full CRUD functionality for authors and books
+- Clean DTO-based layered architecture
+- Input validation and error handling
+- Pagination and sorting support
+- In-memory H2 database
 - Swagger UI for API testing and documentation
 
->🔗 [Go to RESTful-Bookstore-API](https://github.com/lohithpuvvala/Elevate-Wings-Internship-Projects/tree/main/restful_bookstore_api)
----
-
-## 🚧 Upcoming Project
-
-### 2. File Compressor and Decompressor
-
-A desktop utility tool for compressing and decompressing files using Java.
-
-**Objective:**  
-Build a Java-based tool with a user-friendly interface to zip and unzip files.
-
-**Tools & Technologies:**  
-Java, JavaFX or Swing, `java.util.zip`
-
-**Features:**
-- File selection UI
-- Compression using `ZipOutputStream`
-- Decompression using `ZipInputStream`
-- Progress bar for large files
-- Support for multiple file compression
-- Compression statistics logging
-
-**Deliverables:**
-- Executable JAR file
-- Demo video
-- Complete source code
-
-> 🔗 Folder will be added soon...
+> 🔗 [View Project → RESTful Bookstore API](https://github.com/lohithpuvvala/Elevate-Labs-Internship-Projects/tree/main/restful_bookstore_api)
 
 ---
 
-## 🛠 Tech Stack
-- Java, Spring Boot
-- REST APIs, H2/MySQL
-- JavaFX or Swing (for desktop apps)
-- Swagger, Postman
-- Maven, Git & GitHub
+### 🗜️ [2. File Compressor and Decompressor](https://github.com/lohithpuvvala/Elevate-Labs-Internship-Projects/tree/main/File%20Compressor%20and%20Decompressor)
+
+A desktop utility to compress and decompress files using Java Swing.
+
+**🎯 Objective:**  
+Build an interactive Java-based desktop tool that allows users to compress and extract files with ease.
+
+**🛠 Tools & Technologies:**
+- Java 17+
+- Java Swing for GUI
+- `java.util.zip` for file handling
+- FlatLaf (modern UI theme)
+
+**✨ Features:**
+- Toggle between Compression and Decompression modes
+- Multi-file compression with `ZipOutputStream`
+- Extract `.zip` files using `ZipInputStream`
+- Table view showing S.No, File Name, and File Path
+- Progress bar for long operations
+- Mode-specific button rendering (for clean UX)
+- FlatLaf UI and native access suppression info included
+
+> 🔗 [View Project → File Compressor and Decompressor](https://github.com/lohithpuvvala/Elevate-Labs-Internship-Projects/tree/main/File%20Compressor%20and%20Decompressor)
 
 ---
 
-## 📬 Feedback & Suggestions
-If you have any feedback or ideas for improvement, feel free to open an issue or submit a pull request.
+## 🧰 Tech Stack Used
+
+- **Backend Development:** Java, Spring Boot, REST APIs
+- **Desktop Development:** Java Swing
+- **Dev Tools:** Swagger UI, Maven, Git & GitHub
 
 ---
 
-Made with ❤️ during the Elevate Wings Internship.
+## 🎓 Learning Outcomes
+
+- API design using Java and Spring Boot
+- DTO and layered architecture
+- Java Swing GUI development
+- File I/O and compression logic using streams
+- User-friendly UI rendering based on state
+- Clean code structure and best practices
+
+---
+
+## 📦 Project Deliverables
+
+Each project includes:
+- ✅ Well-structured Source Code
+- ✅ Executable JAR file (where applicable)
+- ✅ Project README documentation
+- ✅ (Demo video to be added soon)
+
+---
+
+## 📬 Feedback & Collaboration
+
+If you have feedback, suggestions, or wish to contribute, feel free to:
+- Open an issue
+- Submit a pull request
+
+---
+
+Made with ❤️ during my **Java Developer Internship at Elevate Labs Company**.
