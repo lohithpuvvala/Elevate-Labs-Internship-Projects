@@ -74,7 +74,6 @@ Each project includes:
 - ✅ Well-structured Source Code
 - ✅ Executable JAR file (where applicable)
 - ✅ Project README documentation
-- ✅ (Demo video to be added soon)
 
 ---
 
