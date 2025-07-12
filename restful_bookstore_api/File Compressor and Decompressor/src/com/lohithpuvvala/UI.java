@@ -9,6 +9,7 @@ public class UI extends JFrame{
     private JTextArea fileListArea;
     private File[] selectedFiles;
     private File zipFileToExtract;
+    private JProgressBar progressBar;
 
     public UI(){
         setTitle("File Compressor & Decompressor");
@@ -20,6 +21,11 @@ public class UI extends JFrame{
         fileListArea = new JTextArea();
         fileListArea.setEditable(false);
         add(new JScrollPane(fileListArea), BorderLayout.CENTER);
+
+        progressBar = new JProgressBar();
+        progressBar.setStringPainted(true);
+        progressBar.setVisible(false);//Initially Hidden
+        add(progressBar, BorderLayout.SOUTH);
 
         //Buttons Panel
         JPanel buttonPanel = new JPanel();
@@ -112,8 +118,6 @@ public class UI extends JFrame{
                 }
             }
         });
-
-        // TODO: Add actions for decompressBtn in next commits.
         setVisible(true);
     }
 }
